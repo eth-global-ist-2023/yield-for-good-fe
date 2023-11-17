@@ -77,7 +77,11 @@ export default function DepositDialog() {
               )}
               {balance && <Label>Available balance: {balance.formatted}</Label>}
               <Button
-                disabled={!amount || Boolean(amountError)}
+                disabled={
+                  !amount ||
+                  new BigNumber(amount).lte(0) ||
+                  Boolean(amountError)
+                }
                 className='self-end bg-green-500 text-white transition delay-150 duration-300 hover:bg-green-600'
               >
                 Deposit
