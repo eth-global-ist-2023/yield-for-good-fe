@@ -23,12 +23,11 @@ function Logo() {
   const router = useRouter();
 
   return (
-    <div className='h-[40px] w-[170px]'>
+    <div className='relative h-[20px] w-[170px]'>
       <Image
         onClick={() => router.push(APP_ROUTES.HOME)}
         src={LogoImg}
-        width={50}
-        height={50}
+        fill
         alt='logo'
         className='cursor-pointer'
       />
