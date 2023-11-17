@@ -14,6 +14,7 @@ import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 
 export default function WithdrawDialog() {
+  const [amountError, setAmountError] = useState('');
   const [amount, setAmount] = useState(0);
 
   const handleChange = (e: any) => {

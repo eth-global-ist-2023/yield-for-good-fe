@@ -41,7 +41,20 @@ const config = createConfig(
 const ConnectKitProvider = ({ children }: { children: ReactNode }) => {
   return (
     <WagmiConfig config={config}>
-      <NextConnectKitProvider>{children}</NextConnectKitProvider>
+      <NextConnectKitProvider
+        customTheme={{
+          '--ck-body-background': '#ffffff',
+          '--ck-body-color': '#000000',
+          '--ck-body-color-muted': '#151111',
+          '--ck-primary-button-background': '#4ade80',
+          '--ck-secondary-button-background': '#4ade80',
+          '--ck-primary-button-hover-background': '#22c55e',
+          '--ck-secondary-button-hover-background': '#22c55e',
+          '--ck-tooltip-background': '#ffffff',
+        }}
+      >
+        {children}
+      </NextConnectKitProvider>
     </WagmiConfig>
   );
 };

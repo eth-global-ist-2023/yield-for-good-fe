@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import LogoImg from '../public/logo.png';
+import { Button } from './ui/button';
 
 export default function Header() {
   return (
@@ -65,7 +66,27 @@ function Navigator() {
 function ConnectKitButton() {
   return (
     <div className='relative right-4 h-[40px] w-[170px]'>
-      <ConnectKitButtonNext theme='midnight' />
+      <ConnectKitButtonNext.Custom>
+        {({
+          isConnected,
+          isConnecting,
+          show,
+          hide,
+          address,
+          ensName,
+          chain,
+          truncatedAddress,
+        }) => {
+          return (
+            <Button
+              onClick={show}
+              className='w-[178px] bg-green-500 font-bold text-white hover:bg-green-600'
+            >
+              {isConnected ? ensName || truncatedAddress : 'Connect'}
+            </Button>
+          );
+        }}
+      </ConnectKitButtonNext.Custom>
     </div>
   );
 }
