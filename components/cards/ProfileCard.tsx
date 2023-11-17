@@ -45,7 +45,7 @@ function UserHoldings() {
 function HoldingDetail({ label, value }: { label: string; value: string }) {
   return (
     <div className='flex flex-col gap-4'>
-      <Label className='text-end text-base font-medium uppercase leading-none text-green-300'>
+      <Label className='text-end text-base font-medium uppercase leading-none text-black'>
         {label}
       </Label>
       <Label className='text-2xl font-semibold leading-10 text-green-400'>
@@ -76,7 +76,7 @@ function UserActivityDetail() {
 function ActivityDetail({ label, value }: { label: string; value: string }) {
   return (
     <div className='flex justify-between'>
-      <Label className='text-xl font-medium leading-tight text-green-300'>
+      <Label className='text-xl font-medium leading-tight text-black'>
         {label}
       </Label>
       <Label className='text-xl font-medium leading-tight text-green-400'>

@@ -1,7 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import { Button } from '../ui/button';
+import DepositDialog from '../dialogs/deposit';
+import WithdrawDialog from '../dialogs/withdraw';
 import { Label } from '../ui/label';
 
 interface CampaignCardProps {
@@ -46,6 +47,9 @@ function ImageWrapper({
   return (
     <div className='relative h-[200px] w-[20] overflow-hidden rounded-t-xl'>
       <Image src={imgUrl} alt='campaign logo' fill />
+      <div className='absolute left-2 top-2 text-green-500'>
+        <Label>MakerDAO</Label>
+      </div>
       <div className='absolute right-2 top-2 h-[30px] w-[30px] rounded-full bg-gray-300 p-2'>
         <Image
           src={chainLogoUrl}
@@ -68,7 +72,7 @@ function DetailWrapper({
 }) {
   return (
     <div className='flex flex-col items-center gap-2'>
-      <Label className=' text-green-300'>{label}</Label>
+      <Label className=' text-black'>{label}</Label>
       <Label className=' text-green-400'>{value}</Label>
     </div>
   );
@@ -77,12 +81,8 @@ function DetailWrapper({
 function ActionWrapper() {
   return (
     <div className='self flex flex-1 items-end justify-between px-4 pb-4'>
-      <Button className='bg-white text-green-400 transition delay-150 duration-300 hover:bg-green-500 hover:text-white'>
-        Withdraw
-      </Button>
-      <Button className='bg-white text-green-400 transition delay-150 duration-300 hover:bg-green-500 hover:text-white'>
-        Deposit
-      </Button>
+      <WithdrawDialog />
+      <DepositDialog />
     </div>
   );
 }
