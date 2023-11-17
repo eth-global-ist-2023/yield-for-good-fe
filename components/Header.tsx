@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import { ConnectKitButton as ConnectKitButtonNext } from 'connectkit';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import LogoImg from '../public/logo.png';
 
 export default function Header() {
@@ -19,14 +19,19 @@ export default function Header() {
 }
 
 function Logo() {
+  const router = useRouter();
+
   return (
-    <Image
-      src={LogoImg}
-      width={50}
-      height={50}
-      alt='logo'
-      className='rounded-3xl'
-    />
+    <div className='h-[40px] w-[170px]'>
+      <Image
+        onClick={() => router.push(APP_ROUTES.HOME)}
+        src={LogoImg}
+        width={50}
+        height={50}
+        alt='logo'
+        className='cursor-pointer'
+      />
+    </div>
   );
 }
 

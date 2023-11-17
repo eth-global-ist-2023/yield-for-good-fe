@@ -1,3 +1,5 @@
+import ProfileCard from '@/components/cards/ProfileCard';
+
 export default function Profile() {
-  return <div></div>;
+  return <ProfileCard />;
 }
