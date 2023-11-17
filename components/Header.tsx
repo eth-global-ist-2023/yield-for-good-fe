@@ -52,15 +52,6 @@ function Navigator() {
       <Link
         className={cn(
           'text-base font-medium leading-tight text-zinc-500',
-          pathname === APP_ROUTES.CAMPAIGNS ? 'text-green-400' : 'text-zinc-500'
-        )}
-        href={APP_ROUTES.CAMPAIGNS}
-      >
-        Campaigns
-      </Link>
-      <Link
-        className={cn(
-          'text-base font-medium leading-tight text-zinc-500',
           pathname === APP_ROUTES.PROFILE ? 'text-green-400' : 'text-zinc-500'
         )}
         href={APP_ROUTES.PROFILE}
