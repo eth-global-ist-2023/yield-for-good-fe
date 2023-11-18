@@ -119,7 +119,7 @@ export const ASSETS_MAPPING = {
     CHAINS.SCROLL.id,
     CHAINS.SCROLL.logoUrl
   ),
-  '0x1653F95b38e70D8ef79494e7Cc6F3937BDEE8A5': getUsdcConfig(
+  '0x1653f95b38e70d8ef79494e7cc6f3937bdee8a57': getUsdcConfig(
     CHAINS.SCROLL.id,
     CHAINS.SCROLL.logoUrl
   ),

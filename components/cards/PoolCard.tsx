@@ -73,7 +73,7 @@ function AccruedYieldWrapper({
   const { data } = useGetAccruedYield(poolId);
 
   useEffect(() => {
-    setGeneratedYield(data?.[0] ?? 0);
+    setGeneratedYield(data?.split(',')[0] ?? 0);
   }, [data]);
 
   return (
