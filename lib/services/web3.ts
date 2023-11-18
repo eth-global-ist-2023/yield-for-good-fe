@@ -33,3 +33,33 @@ export const getPoolsForChain = async (
 
   return await Promise.all(promises);
 };
+
+export const depositInPool = async (poolId: number, amount: number) => {
+  const vaultContract = getVaultContractInstance();
+
+  return await vaultContract.enter(poolId, amount);
+};
+
+export const withdrawFromPool = async (poolId: number, amount: number) => {
+  const vaultContract = getVaultContractInstance();
+
+  return await vaultContract.exit(poolId, amount);
+};
+
+export const claimYield = async (poolId: number) => {
+  const vaultContract = getVaultContractInstance();
+
+  return await vaultContract.exit(poolId);
+};
+
+export const getAccruedYieldForPool = async (poolId: number) => {
+  const vaultContract = getVaultContractInstance();
+
+  return await vaultContract.getAccruedYieldForPool(poolId);
+};
+
+export const getUserPrincipal = async (poolId: number, address: string) => {
+  const vaultContract = getVaultContractInstance();
+
+  return await vaultContract.getUserPrincipal(poolId, address);
+};
