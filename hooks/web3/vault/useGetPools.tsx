@@ -50,7 +50,7 @@ export const useGetPools = () => {
     const vaults = [];
 
     for (let i = 0; i < data?.length; i++) {
-      const element = data[i].result as any;
+      const element = data?.[i].result as any;
       const item = {
         poolOwner: element[0],
         yieldSource: element[1],
