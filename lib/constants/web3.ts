@@ -1,3 +1,5 @@
+import { goerli } from 'wagmi/chains';
+
 export enum RPC_URLS {
   GOERLI = 'https://goerli.infura.io/v3/69dd7cde1cc74a0cb9e30b06b1b28792',
 }
@@ -25,4 +27,6 @@ export const ASSETS_MAPPING = {
   },
 };
 
-export const POOLS_MAPPING = {};
+export const VAULT_REGISTRY = {
+  [goerli.id]: process.env.NEXT_PUBLIC_VAULT_GOERLI_ADDRESS as string,
+};

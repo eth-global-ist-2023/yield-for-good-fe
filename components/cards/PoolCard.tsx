@@ -1,7 +1,7 @@
 'use client';
 
 import { ASSETS_MAPPING } from '@/lib/constants/web3';
-import { GetPoolsType } from '@/lib/types/web3';
+import { PoolType } from '@/lib/types/web3';
 import Image from 'next/image';
 import { formatEther } from 'viem';
 import DepositDialog from '../dialogs/deposit';
@@ -9,7 +9,7 @@ import WithdrawDialog from '../dialogs/withdraw';
 import { Label } from '../ui/label';
 
 interface CampaignCardProps {
-  pool: GetPoolsType;
+  pool: PoolType;
 }
 
 export default function PoolCard({ pool }: CampaignCardProps) {
@@ -41,7 +41,7 @@ export default function PoolCard({ pool }: CampaignCardProps) {
         <DetailWrapper label='Created At' value={'[5]'} />
       </div>
 
-      <ActionWrapper />
+      <ActionWrapper pool={pool} />
     </div>
   );
 }
@@ -101,11 +101,11 @@ function DetailWrapper({
   );
 }
 
-function ActionWrapper() {
+function ActionWrapper({ pool }: { pool: PoolType }) {
   return (
     <div className='self flex flex-1 items-end justify-between px-4 pb-4'>
-      <WithdrawDialog />
-      <DepositDialog />
+      <WithdrawDialog pool={pool} />
+      <DepositDialog pool={pool} />
     </div>
   );
 }
