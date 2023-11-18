@@ -11,7 +11,7 @@ export default function ChainsSlider2() {
   }, []);
 
   return (
-    <div className='scroller w-full' data-direction='right' data-speed='fast'>
+    <div className='scroller w-full' data-direction='right' data-speed='medium'>
       <div className='scroller__inner'>
         <Image src='/base_logo.png' alt='base_logo' width={40} height={40} />
         <Image src='/celo_logo.png' alt='celo_logo' width={40} height={40} />

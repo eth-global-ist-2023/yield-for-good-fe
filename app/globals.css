@@ -62,6 +62,10 @@ body {
     --_animation-duration: 20s;
   }
   
+  .scroller[data-speed="medium"] {
+    --_animation-duration: 40s;
+  }
+
   .scroller[data-speed="slow"] {
     --_animation-duration: 60s;
   }
