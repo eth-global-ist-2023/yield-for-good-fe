@@ -21,6 +21,7 @@ body {
     place-content: center;
     font-family: system-ui;
     font-size: 1.125rem;
+    padding: 2rem 0;
     background-color: var(--clr-primary-800);
   }
   
