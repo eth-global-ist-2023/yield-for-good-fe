@@ -22,7 +22,7 @@ const getDaiConfig = (chain: string, chainIconUrl: string) => {
 const getApeConfig = (chain: string, chainIconUrl: string) => {
   return {
     address: '0x328507DC29C95c170B56a1b3A758eB7a9E73455c',
-    symbol: 'M20',
+    symbol: 'APE',
     assetIconUrl:
       'https://s2.coinmarketcap.com/static/img/coins/64x64/18876.png',
     decimals: 18,
@@ -151,7 +151,7 @@ export const ASSETS_MAPPING = {
 
 export const ASSET_POOLS = {
   DAI: 'SparkLend',
-  M20: 'APE Coin',
+  APE: 'APE Coin',
   USDC: 'YEARN',
 };
 
