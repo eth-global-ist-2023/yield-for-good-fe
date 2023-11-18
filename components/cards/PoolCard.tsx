@@ -19,7 +19,7 @@ export default function PoolCard({ pool }: CampaignCardProps) {
   const asset = ASSETS_MAPPING[pool.asset as keyof typeof ASSETS_MAPPING];
 
   return (
-    <div className='border-green-400-500 flex  h-auto min-h-[500px] w-1/4 min-w-[300px] flex-col gap-2 rounded-xl border shadow-xl transition duration-300 hover:scale-105'>
+    <div className='border-green-400-500 flex h-auto min-h-[500px] w-1/4 min-w-[300px] flex-col gap-2 space-y-5 rounded-xl border shadow-xl transition duration-300 hover:scale-105'>
       <ImageWrapper
         imageURI={pool.imageURI}
         assetIconUrl={asset.assetIconUrl}
@@ -30,7 +30,7 @@ export default function PoolCard({ pool }: CampaignCardProps) {
 
       <PoolAsset assetIconUrl={asset.assetIconUrl} assetSymbol={asset.symbol} />
 
-      <div className='mt-6 flex justify-between gap-4 px-11'>
+      <div className='mt-6 flex  justify-between gap-4 px-11'>
         <DetailWrapper
           label='TVL'
           value={`${formatNumber(
@@ -88,8 +88,10 @@ function AccruedYieldWrapper({
 
 function DetailHeader({ title }: { title: string }) {
   return (
-    <div className='mt-4 flex justify-center px-11 leading-6'>
-      <Label className='text-center text-sm uppercase'>{title}</Label>
+    <div className='mt-4 flex h-[45px] justify-center px-11'>
+      <Label className='text-center text-sm uppercase leading-none'>
+        {title}
+      </Label>
     </div>
   );
 }
