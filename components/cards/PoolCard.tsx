@@ -23,9 +23,9 @@ export default function PoolCard({ pool }: CampaignCardProps) {
         chainIconUrl={asset.chainIconUrl}
       />
 
-      <DetailHeader title={pool.title} description={pool.description} />
+      <DetailHeader title={pool.title} />
 
-      <div className='flex flex-wrap justify-evenly gap-4 px-4'>
+      <div className='mt-6 flex flex-wrap justify-evenly gap-4 px-4'>
         <DetailWrapper
           label='TVL'
           value={`${formatEther(pool.totalAssetPrincipal).toString()} ${
@@ -34,13 +34,12 @@ export default function PoolCard({ pool }: CampaignCardProps) {
         />
         <DetailWrapper
           label='Reward'
-          value={`[${formatEther(pool.totalAssetPrincipal).toString()} ${
+          value={`${formatEther(pool.totalAssetPrincipal).toString()} ${
             asset.symbol
-          }]`}
+          }`}
         />
 
         <DetailWrapper label='Participants' value={pool.totalParticipants} />
-        <DetailWrapper label='Created At' value={pool.creationDate} />
       </div>
 
       <ActionWrapper pool={pool} />
@@ -85,17 +84,10 @@ function ImageWrapper({
   );
 }
 
-function DetailHeader({
-  title,
-  description,
-}: {
-  title: string;
-  description: string;
-}) {
+function DetailHeader({ title }: { title: string }) {
   return (
     <div className='my-4 flex h-[50px] justify-center'>
       <Label className='text-md text-center'>{title}</Label>
-      {/* <Label>{description}</Label> */}
     </div>
   );
 }
