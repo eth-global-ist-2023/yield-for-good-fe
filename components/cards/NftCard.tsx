@@ -1,5 +1,6 @@
 'use client';
 
+import { IMG_3 } from '@/lib/constants/mock_placeholder';
 import Image from 'next/image';
 import { Label } from '../ui/label';
 
@@ -8,7 +9,7 @@ export default function NFTCard({ nft }: { nft: any }) {
     <div className='h-[300px] rounded-xl border bg-white shadow-xl transition duration-300 hover:scale-105'>
       <div className='relative h-[200px] w-[200px]'>
         <Image
-          src={nft?.image}
+          src={nft?.image || IMG_3}
           alt='NFT'
           fill
           className='rounded-t-xl'
