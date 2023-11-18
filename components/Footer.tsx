@@ -5,7 +5,6 @@ import { cn } from '@/lib/utils';
 import { Github } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import LogoImg from '../public/eth-global.svg';
 
 export default function Footer() {
@@ -18,17 +17,16 @@ export default function Footer() {
 }
 
 function Logo() {
-  const router = useRouter();
-
   return (
     <div className='relative h-[50px] w-[170px]'>
-      <Image
-        onClick={() => router.push(APP_ROUTES.HOME)}
-        src={LogoImg}
-        fill
-        alt='logo'
+      <a
+        href='https://ethglobal.com/'
+        target='_blank'
+        rel='noopener noreferrer'
         className='cursor-pointer'
-      />
+      >
+        <Image src={LogoImg} fill alt='logo' />
+      </a>
     </div>
   );
 }
