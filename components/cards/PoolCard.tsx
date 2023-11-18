@@ -27,13 +27,13 @@ export default function PoolCard({ pool }: CampaignCardProps) {
 
       <div className='flex flex-wrap justify-evenly gap-4 px-4'>
         <DetailWrapper
-          label='Deposited'
+          label='TVL'
           value={`${formatEther(pool.totalAssetPrincipal).toString()} ${
             asset.symbol
           }`}
         />
         <DetailWrapper
-          label='Generated'
+          label='Reward'
           value={`[${formatEther(pool.totalAssetPrincipal).toString()} ${
             asset.symbol
           }]`}
