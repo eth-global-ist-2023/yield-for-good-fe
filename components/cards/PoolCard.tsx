@@ -19,7 +19,7 @@ export default function PoolCard({ pool }: CampaignCardProps) {
   const asset = ASSETS_MAPPING[pool.asset as keyof typeof ASSETS_MAPPING];
 
   return (
-    <div className='border-green-400-500 flex h-[450px] w-1/4 min-w-[300px] flex-col gap-2 rounded-xl border shadow-xl transition duration-300 hover:scale-105'>
+    <div className='border-green-400-500 flex  h-auto min-h-[500px] w-1/4 min-w-[300px] flex-col gap-2 rounded-xl border shadow-xl transition duration-300 hover:scale-105'>
       <ImageWrapper
         imageURI={pool.imageURI}
         assetIconUrl={asset.assetIconUrl}

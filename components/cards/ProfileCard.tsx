@@ -8,7 +8,7 @@ import { Separator } from '../ui/separator';
 
 export default function ProfileCard() {
   return (
-    <div className='m-auto flex h-[600px] w-1/2 flex-col rounded-xl p-4'>
+    <div className='m-auto flex w-1/2 flex-col rounded-xl p-4'>
       <UserAvatar />
       <UserHoldings />
     </div>
