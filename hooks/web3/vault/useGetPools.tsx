@@ -45,6 +45,7 @@ export const useGetPools = () => {
   useEffect(() => {
     if (!data) {
       setPools([]);
+      return;
     }
 
     const vaults = [];
