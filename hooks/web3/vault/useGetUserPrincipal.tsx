@@ -17,5 +17,5 @@ export const useGetUserPrincipal = (poolId: number) => {
     enabled: Boolean(address),
   });
 
-  return address ? (data as any).toString() : '';
+  return ((data as any) ?? '').toString();
 };
