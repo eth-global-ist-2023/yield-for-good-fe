@@ -5,9 +5,9 @@ import NftList from '@/components/lists/NftList';
 
 export default function Profile() {
   return (
-    <div>
-      <ProfileCard />
+    <div className='flex flex-col gap-4'>
       <NftList />
+      <ProfileCard />
     </div>
   );
 }

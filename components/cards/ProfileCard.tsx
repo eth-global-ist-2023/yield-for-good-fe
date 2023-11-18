@@ -11,6 +11,7 @@ export default function ProfileCard() {
     <div className='m-auto flex w-1/2 flex-col rounded-xl p-4'>
       <UserAvatar />
       <UserHoldings />
+      <UserActivityDetail />
     </div>
   );
 }
@@ -29,8 +30,9 @@ function UserAvatar() {
   }, [_address]);
 
   return (
-    <div className='flex w-full flex-col items-center justify-center gap-4'>
-      <div className='relative flex h-[175px] w-1/3 overflow-hidden rounded-xl'>
+    <div className='flex w-full flex-col items-start justify-center gap-4'>
+      <Label className='text-xl font-bold'>Your profile picture</Label>
+      <div className='relative right-6 flex h-[175px] w-1/3'>
         <Image src='/913.svg' alt='user-avatar' fill />
       </div>
       <Label className='text-center text-green-400'>{address}</Label>
@@ -68,7 +70,7 @@ function UserActivityDetail() {
         Campaign Participant
       </Label>
       <Separator className='my-4 h-[1px] w-full bg-green-400' />
-      <div className='flex flex-1 flex-col justify-between'>
+      <div className='flex flex-1 flex-col justify-between gap-4'>
         <ActivityDetail label='Charity #1' value='0.56ETH' />
         <ActivityDetail label='Charity #2' value='0.20ETH' />
         <ActivityDetail label='Charity #3' value='0.87ETH' />
