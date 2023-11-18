@@ -93,6 +93,12 @@ export const ASSETS_MAPPING = {
   ),
 };
 
+export const ASSET_POOLS = {
+  DAI: 'SparkLend',
+  M20: 'APE Coin',
+  USDC: 'YEARN',
+};
+
 export const VAULT_REGISTRY = {
   [goerli.id]: process.env.NEXT_PUBLIC_VAULT_GOERLI_ADDRESS as string,
   [baseGoerli.id]: process.env.NEXT_PUBLIC_VAULT_BASE_ADDRESS as string,

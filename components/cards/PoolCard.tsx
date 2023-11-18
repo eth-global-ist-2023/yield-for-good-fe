@@ -1,6 +1,6 @@
 'use client';
 
-import { ASSETS_MAPPING } from '@/lib/constants/web3';
+import { ASSETS_MAPPING, ASSET_POOLS } from '@/lib/constants/web3';
 import { PoolType } from '@/lib/types/web3';
 import Image from 'next/image';
 import { formatEther } from 'viem';
@@ -13,11 +13,10 @@ interface CampaignCardProps {
 }
 
 export default function PoolCard({ pool }: CampaignCardProps) {
-  console.log('pool', pool);
   const asset = ASSETS_MAPPING[pool.asset as keyof typeof ASSETS_MAPPING];
 
   return (
-    <div className='border-green-400-500 flex h-[450px] w-1/5 min-w-[250px] flex-col rounded-xl border shadow-xl transition duration-300 hover:scale-105'>
+    <div className='border-green-400-500 flex h-[450px] w-1/4 min-w-[300px] flex-col gap-2 rounded-xl border shadow-xl transition duration-300 hover:scale-105'>
       <ImageWrapper
         imageURI={pool.imageURI}
         assetIconUrl={asset.assetIconUrl}
@@ -26,7 +25,9 @@ export default function PoolCard({ pool }: CampaignCardProps) {
 
       <DetailHeader title={pool.title} />
 
-      <div className='mt-6 flex flex-wrap justify-evenly gap-4 px-4'>
+      <PoolAsset assetIconUrl={asset.assetIconUrl} assetSymbol={asset.symbol} />
+
+      <div className='mt-6 flex flex-wrap justify-between gap-4 px-11'>
         <DetailWrapper
           label='TVL'
           value={`${formatEther(pool.totalAssetPrincipal).toString()} ${
@@ -50,8 +51,6 @@ export default function PoolCard({ pool }: CampaignCardProps) {
 
 function ImageWrapper({
   imageURI,
-  assetIconUrl,
-  chainIconUrl,
 }: {
   imageURI: string;
   assetIconUrl: string;
@@ -60,35 +59,33 @@ function ImageWrapper({
   return (
     <div className='relative h-[200px] min-h-[200px] w-[20] overflow-hidden rounded-t-xl'>
       <Image src={imageURI} alt='campaign logo' fill />
-      <div className='absolute left-2 top-4 text-green-500'>
-        <Label>MakerDAO</Label>
-      </div>
-      <div className='absolute right-2 top-2 h-[35px] w-[35px] rounded-full bg-gray-100 p-2'>
-        <Image
-          src={assetIconUrl}
-          alt='asset-icon'
-          width={20}
-          height={20}
-          className='relative bottom-0'
-        />
-      </div>
-      <div className='absolute right-[-5px] top-6 h-[30px] w-[30px] p-2'>
-        <Image
-          src={chainIconUrl}
-          alt='chain-icon'
-          width={10}
-          height={10}
-          className='relative bottom-1'
-        />
-      </div>
     </div>
   );
 }
 
 function DetailHeader({ title }: { title: string }) {
   return (
-    <div className='my-4 flex h-[50px] justify-center'>
-      <Label className='text-md text-center'>{title}</Label>
+    <div className='mt-4 flex h-[50px] justify-center px-11'>
+      <Label className='text-md text-center uppercase'>{title}</Label>
+    </div>
+  );
+}
+
+function PoolAsset({
+  assetIconUrl,
+  assetSymbol,
+}: {
+  assetIconUrl: string;
+  assetSymbol: string;
+}) {
+  return (
+    <div className='relative flex items-center justify-between gap-2 px-11'>
+      <Label className='text-green-400'>
+        {ASSET_POOLS[assetSymbol as keyof typeof ASSET_POOLS]}
+      </Label>
+      <div className='relative h-[30px] w-[30px]'>
+        <Image src={assetIconUrl} alt='asset-icon' fill />
+      </div>
     </div>
   );
 }

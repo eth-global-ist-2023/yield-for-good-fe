@@ -6,14 +6,6 @@ import { useAccount } from 'wagmi';
 import { Label } from '../ui/label';
 import { Separator } from '../ui/separator';
 
-const PROFILE_AVATAR_MAPPING = {
-  1: '/911.svg',
-  2: '/912.svg',
-  3: '/913.svg',
-  4: '/914.svg',
-  5: '/915.svg',
-};
-
 export default function ProfileCard() {
   return (
     <div className='m-auto flex h-[600px] w-1/2 flex-col rounded-xl p-4'>
