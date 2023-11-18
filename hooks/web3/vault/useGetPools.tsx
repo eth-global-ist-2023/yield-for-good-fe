@@ -49,8 +49,6 @@ export const useGetPools = () => {
       return;
     }
 
-    console.log('data eee', data);
-
     const vaults = [];
 
     for (let i = 0; i < data?.length; i++) {
