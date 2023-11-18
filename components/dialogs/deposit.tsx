@@ -12,13 +12,14 @@ import { useApprove } from '@/hooks/web3/erc20/useApprove';
 import { useGetAllowance } from '@/hooks/web3/erc20/useGetAllowance';
 import { useGetBalance } from '@/hooks/web3/erc20/useGetBalance';
 import { useEnter } from '@/hooks/web3/vault/useEnter';
-import { ASSETS_MAPPING } from '@/lib/constants/web3';
+import { ASSETS_MAPPING, VAULT_REGISTRY } from '@/lib/constants/web3';
 import { PoolType } from '@/lib/types/web3';
+import { JsonRpcProvider } from '@ethersproject/providers';
 import { BigNumber } from 'bignumber.js';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { formatUnits, maxUint256, parseEther } from 'viem';
-import { useAccount } from 'wagmi';
+import { useAccount, useNetwork } from 'wagmi';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
@@ -31,6 +32,7 @@ export default function DepositDialog({ pool }: { pool: PoolType }) {
   const [amount, setAmount] = useState('');
   const [amountError, setAmountError] = useState('');
 
+  const { chain } = useNetwork();
   const allowance = useGetAllowance(pool.asset);
   const { address } = useAccount();
   const { data: erc20Balance, refetch } = useGetBalance(pool.asset);
@@ -69,18 +71,37 @@ export default function DepositDialog({ pool }: { pool: PoolType }) {
     }
 
     setBtnDisabled(true);
+
+    const provider = new JsonRpcProvider(chain?.rpcUrls.default.http[0] as any);
+
     if (new BigNumber(allowance).eq(0)) {
-      await writeApproveAsync({
-        args: [process.env.NEXT_PUBLIC_VAULT_GOERLI_ADDRESS, maxUint256],
+      const vaultAddress =
+        VAULT_REGISTRY[chain?.id as keyof typeof VAULT_REGISTRY] ??
+        VAULT_REGISTRY[5];
+
+      const { hash } = await writeApproveAsync({
+        args: [vaultAddress, maxUint256],
       });
+
+      await provider.waitForTransaction(hash);
     }
 
     // NOTE: for decimals !== 18 is not going to work
-    await writeEnterAsync({
+    const { hash } = await writeEnterAsync({
       args: [pool.poolId, parseEther(amount)],
     });
 
-    toast('Successful deposited! 🚀');
+    toast('Transaction processing... 🕐');
+
+    setTimeout(async () => {
+      const txReceipt = await provider.waitForTransaction(hash);
+      toast(
+        txReceipt.status === 1
+          ? 'Successful deposited! 🚀'
+          : 'Something went wrong! 😥'
+      );
+    }, 0);
+
     document.getElementById('closeDialog')?.click();
     setBtnDisabled(false);
   };
@@ -88,6 +109,7 @@ export default function DepositDialog({ pool }: { pool: PoolType }) {
   return (
     <Dialog
       onOpenChange={(isOpen) => {
+        setIsOpen(isOpen);
         if (!isOpen) {
           setAmount('');
         }

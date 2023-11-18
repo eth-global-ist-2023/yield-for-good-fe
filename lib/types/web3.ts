@@ -1,8 +1,13 @@
 export type PoolType = {
-  asset: string;
+  title: string;
+  description: string;
+  imageURI: string;
   poolOwner: string;
   yieldSource: string;
-  poolId: number;
-  totalAssetPrincipal: bigint;
+  asset: string;
   totalSharesDelegated: bigint;
+  totalAssetPrincipal: bigint;
+  creationDate: number;
+  totalParticipants: number;
+  poolId: number;
 };

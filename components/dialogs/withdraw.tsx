@@ -12,15 +12,18 @@ import { useExit } from '@/hooks/web3/vault/useExit';
 import { useGetUserPrincipal } from '@/hooks/web3/vault/useGetUserPrincipal';
 import { ASSETS_MAPPING } from '@/lib/constants/web3';
 import { PoolType } from '@/lib/types/web3';
+import { JsonRpcProvider } from '@ethersproject/providers';
 import BigNumber from 'bignumber.js';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { formatUnits, parseEther } from 'viem';
+import { useNetwork } from 'wagmi';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 
 export default function WithdrawDialog({ pool }: { pool: PoolType }) {
+  const { chain } = useNetwork();
   const [isOpen, setIsOpen] = useState(false);
   const [btnDisabled, setBtnDisabled] = useState(false);
   const [amountError, setAmountError] = useState('');
@@ -57,8 +60,21 @@ export default function WithdrawDialog({ pool }: { pool: PoolType }) {
 
   const executeWithdraw = async () => {
     setBtnDisabled(true);
-    await writeExitAsync({ args: [pool.poolId, parseEther(amount)] });
-    toast('Funds withdrawn successfully. Thanks for participating! ❤️️');
+    const provider = new JsonRpcProvider(chain?.rpcUrls.default.http[0] as any);
+    const { hash } = await writeExitAsync({
+      args: [pool.poolId, parseEther(amount)],
+    });
+
+    toast('Transaction processing... 🕐');
+
+    setTimeout(async () => {
+      const txReceipt = await provider.waitForTransaction(hash);
+      toast(
+        txReceipt.status === 1
+          ? 'Funds withdrawn successfully. Thanks for participating! ❤️️'
+          : 'Something went wrong! 😥'
+      );
+    }, 0);
 
     document.getElementById('closeDialog')?.click();
     setBtnDisabled(false);

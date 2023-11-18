@@ -25,6 +25,16 @@ export const ASSETS_MAPPING = {
     chainIconUrl:
       'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Ethereum_logo_2014.svg/1257px-Ethereum_logo_2014.svg.png',
   },
+  '0x2fdb64D4f6eE3B159dC85AF26fdd715DDb040252': {
+    address: '0x328507DC29C95c170B56a1b3A758eB7a9E73455c',
+    symbol: 'USDC',
+    assetIconUrl:
+      'https://s2.coinmarketcap.com/static/img/coins/200x200/3408.png',
+    decimals: 18,
+    chain: 'ethereum',
+    chainIconUrl:
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Ethereum_logo_2014.svg/1257px-Ethereum_logo_2014.svg.png',
+  },
 };
 
 export const VAULT_REGISTRY = {

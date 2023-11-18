@@ -49,18 +49,26 @@ export const useGetPools = () => {
       return;
     }
 
+    console.log('data eee', data);
+
     const vaults = [];
 
     for (let i = 0; i < data?.length; i++) {
       const element = data?.[i].result as any;
       const item = {
-        poolOwner: element[0],
-        yieldSource: element[1],
-        asset: element[2],
-        totalSharesDelegated: element[3],
-        totalAssetPrincipal: element[4],
+        title: element[0],
+        description: element[1],
+        imageURI: element[2],
+        poolOwner: element[3],
+        yieldSource: element[4],
+        asset: element[5],
+        totalSharesDelegated: element[6],
+        totalAssetPrincipal: element[7],
+        creationDate: element[8].toString(),
+        totalParticipants: element[9].toString(),
+        poolId: i + 1,
       };
-      vaults.push({ ...item, poolId: i + 1 });
+      vaults.push(item);
     }
 
     setPools(vaults);
@@ -68,7 +76,6 @@ export const useGetPools = () => {
 
   useEffect(() => {
     const intervalRef = setInterval(async () => {
-      console.log('called hm');
       await refetchLastPoolId();
       await refetchPools();
     }, 5000);

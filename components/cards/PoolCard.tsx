@@ -16,14 +16,16 @@ export default function PoolCard({ pool }: CampaignCardProps) {
   const asset = ASSETS_MAPPING[pool.asset as keyof typeof ASSETS_MAPPING];
 
   return (
-    <div className='border-green-400-500 flex h-[400px] w-1/5 min-w-[250px] flex-col rounded-xl border shadow-xl transition duration-300 hover:scale-105'>
+    <div className='border-green-400-500 flex h-[450px] w-1/5 min-w-[250px] flex-col rounded-xl border shadow-xl transition duration-300 hover:scale-105'>
       <ImageWrapper
-        // imgUrl={data.imgUrl}
+        imageURI={pool.imageURI}
         assetIconUrl={asset.assetIconUrl}
         chainIconUrl={asset.chainIconUrl}
       />
 
-      <div className='flex flex-wrap justify-evenly gap-4 p-4'>
+      <DetailHeader title={pool.title} description={pool.description} />
+
+      <div className='flex flex-wrap justify-evenly gap-4 px-4'>
         <DetailWrapper
           label='Deposited'
           value={`${formatEther(pool.totalAssetPrincipal).toString()} ${
@@ -37,8 +39,8 @@ export default function PoolCard({ pool }: CampaignCardProps) {
           }]`}
         />
 
-        <DetailWrapper label='Participants' value={'[5]'} />
-        <DetailWrapper label='Created At' value={'[5]'} />
+        <DetailWrapper label='Participants' value={pool.totalParticipants} />
+        <DetailWrapper label='Created At' value={pool.creationDate} />
       </div>
 
       <ActionWrapper pool={pool} />
@@ -47,20 +49,17 @@ export default function PoolCard({ pool }: CampaignCardProps) {
 }
 
 function ImageWrapper({
-  // imgUrl,
+  imageURI,
   assetIconUrl,
   chainIconUrl,
 }: {
-  // imgUrl: string;
+  imageURI: string;
   assetIconUrl: string;
   chainIconUrl: string;
 }) {
-  const imgUrl =
-    'https://static.vecteezy.com/system/resources/previews/006/902/005/non_2x/illustration-for-charity-welfare-assistance-concept-free-vector.jpg';
-
   return (
-    <div className='relative h-[200px] w-[20] overflow-hidden rounded-t-xl'>
-      <Image src={imgUrl} alt='campaign logo' fill />
+    <div className='relative h-[200px] min-h-[200px] w-[20] overflow-hidden rounded-t-xl'>
+      <Image src={imageURI} alt='campaign logo' fill />
       <div className='absolute left-2 top-4 text-green-500'>
         <Label>MakerDAO</Label>
       </div>
@@ -82,6 +81,21 @@ function ImageWrapper({
           className='relative bottom-1'
         />
       </div>
+    </div>
+  );
+}
+
+function DetailHeader({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) {
+  return (
+    <div className='my-4 flex h-[50px] justify-center'>
+      <Label className='text-md text-center'>{title}</Label>
+      {/* <Label>{description}</Label> */}
     </div>
   );
 }

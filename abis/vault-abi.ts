@@ -181,7 +181,12 @@ const vaultAbi = [
     type: 'function',
   },
   {
-    inputs: [{ internalType: 'address', name: 'yieldSource', type: 'address' }],
+    inputs: [
+      { internalType: 'address', name: 'yieldSource', type: 'address' },
+      { internalType: 'string', name: 'title', type: 'string' },
+      { internalType: 'string', name: 'description', type: 'string' },
+      { internalType: 'string', name: 'imageURI', type: 'string' },
+    ],
     name: 'createPool',
     outputs: [],
     stateMutability: 'nonpayable',
@@ -247,6 +252,9 @@ const vaultAbi = [
     inputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     name: 'pools',
     outputs: [
+      { internalType: 'string', name: 'title', type: 'string' },
+      { internalType: 'string', name: 'description', type: 'string' },
+      { internalType: 'string', name: 'imageURI', type: 'string' },
       { internalType: 'address', name: 'poolOwner', type: 'address' },
       { internalType: 'address', name: 'yieldSource', type: 'address' },
       { internalType: 'address', name: 'asset', type: 'address' },
@@ -256,6 +264,8 @@ const vaultAbi = [
         type: 'uint256',
       },
       { internalType: 'uint256', name: 'totalAssetPrincipal', type: 'uint256' },
+      { internalType: 'uint256', name: 'creationDate', type: 'uint256' },
+      { internalType: 'uint256', name: 'totalParticipants', type: 'uint256' },
     ],
     stateMutability: 'view',
     type: 'function',
