@@ -105,10 +105,13 @@ function PoolAsset({
 }) {
   return (
     <div className='relative flex items-center justify-between gap-2 px-11'>
-      <Label className='text-green-400'>
-        {ASSET_POOLS[assetSymbol as keyof typeof ASSET_POOLS]}
-      </Label>
-      <div className='relative h-[30px] w-[30px]'>
+      <div className='flex flex-col gap-2'>
+        <Label>Protocol</Label>
+        <Label className='text-green-400'>
+          {ASSET_POOLS[assetSymbol as keyof typeof ASSET_POOLS]}
+        </Label>
+      </div>
+      <div className='relative h-[35px] w-[35px]'>
         <Image src={assetIconUrl} alt='asset-icon' fill />
       </div>
     </div>
