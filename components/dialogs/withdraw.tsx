@@ -73,7 +73,7 @@ export default function WithdrawDialog({ pool }: { pool: PoolType }) {
         }
       }}
     >
-      <DialogTrigger className='bg-green-500 p-2 px-4 text-sm text-white transition delay-150 duration-300 hover:bg-green-600'>
+      <DialogTrigger className='rounded-xl bg-green-500 p-2 px-4 text-sm text-white transition delay-150 duration-300 hover:bg-green-600'>
         Withdraw
       </DialogTrigger>
       <DialogContent className='bg-white'>
@@ -115,7 +115,7 @@ export default function WithdrawDialog({ pool }: { pool: PoolType }) {
                   new BigNumber(amount).lte(0) ||
                   Boolean(amountError)
                 }
-                className='self-end bg-green-500 text-white transition delay-150 duration-300 hover:bg-green-600'
+                className='self-end rounded-xl bg-green-500 text-white transition delay-150 duration-300 hover:bg-green-600'
                 onClick={executeWithdraw}
               >
                 Withdraw
