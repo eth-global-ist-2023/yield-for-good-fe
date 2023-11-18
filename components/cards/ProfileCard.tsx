@@ -11,7 +11,6 @@ export default function ProfileCard() {
     <div className='m-auto flex h-[600px] w-1/2 flex-col rounded-xl p-4'>
       <UserAvatar />
       <UserHoldings />
-      <UserActivityDetail />
     </div>
   );
 }

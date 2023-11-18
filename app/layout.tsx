@@ -1,4 +1,5 @@
 import ChainsSlider from '@/components/ChainsSlider';
+import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import Providers from '@/components/providers';
 import type { Metadata } from 'next';
@@ -29,6 +30,7 @@ export default function RootLayout({
             <Header />
             <ChainsSlider />
             <div className='page-wrapper'>{children}</div>
+            <Footer />
           </div>
         </Providers>
       </body>
