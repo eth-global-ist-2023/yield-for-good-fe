@@ -13,18 +13,27 @@ import { useGetUserPrincipal } from '@/hooks/web3/vault/useGetUserPrincipal';
 import { ASSETS_MAPPING } from '@/lib/constants/web3';
 import { PoolType } from '@/lib/types/web3';
 import BigNumber from 'bignumber.js';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import { formatUnits, parseEther } from 'viem';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 
 export default function WithdrawDialog({ pool }: { pool: PoolType }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [btnDisabled, setBtnDisabled] = useState(false);
   const [amountError, setAmountError] = useState('');
   const [amount, setAmount] = useState('');
   const asset = ASSETS_MAPPING[pool.asset as keyof typeof ASSETS_MAPPING];
-  const userPrincipal = useGetUserPrincipal(pool.poolId);
+  const { data: userPrincipal, refetch } = useGetUserPrincipal(pool.poolId);
   const { writeExitAsync } = useExit();
+
+  useEffect(() => {
+    if (isOpen) {
+      refetch();
+    }
+  }, [isOpen, refetch]);
 
   const handleChange = (e: any) => {
     const value = e.target.value;
@@ -47,12 +56,18 @@ export default function WithdrawDialog({ pool }: { pool: PoolType }) {
   };
 
   const executeWithdraw = async () => {
+    setBtnDisabled(true);
     await writeExitAsync({ args: [pool.poolId, parseEther(amount)] });
+    toast('Funds withdrawn successfully. Thanks for participating! ❤️️');
+
+    document.getElementById('closeDialog')?.click();
+    setBtnDisabled(false);
   };
 
   return (
     <Dialog
       onOpenChange={(isOpen) => {
+        setIsOpen(isOpen);
         if (!isOpen) {
           setAmount('');
         }
@@ -95,6 +110,7 @@ export default function WithdrawDialog({ pool }: { pool: PoolType }) {
               )}
               <Button
                 disabled={
+                  btnDisabled ||
                   !amount ||
                   new BigNumber(amount).lte(0) ||
                   Boolean(amountError)

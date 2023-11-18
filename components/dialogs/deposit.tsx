@@ -15,7 +15,8 @@ import { useEnter } from '@/hooks/web3/vault/useEnter';
 import { ASSETS_MAPPING } from '@/lib/constants/web3';
 import { PoolType } from '@/lib/types/web3';
 import { BigNumber } from 'bignumber.js';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import { formatUnits, maxUint256, parseEther } from 'viem';
 import { useAccount } from 'wagmi';
 import { Button } from '../ui/button';
@@ -25,14 +26,22 @@ import { Label } from '../ui/label';
 export default function DepositDialog({ pool }: { pool: PoolType }) {
   const asset = ASSETS_MAPPING[pool.asset as keyof typeof ASSETS_MAPPING];
 
+  const [isOpen, setIsOpen] = useState(false);
+  const [btnDisabled, setBtnDisabled] = useState(false);
   const [amount, setAmount] = useState('');
   const [amountError, setAmountError] = useState('');
 
   const allowance = useGetAllowance(pool.asset);
   const { address } = useAccount();
-  const erc20Balance = useGetBalance(pool.asset);
+  const { data: erc20Balance, refetch } = useGetBalance(pool.asset);
   const { writeApproveAsync } = useApprove(pool.asset);
   const { writeEnterAsync } = useEnter();
+
+  useEffect(() => {
+    if (isOpen) {
+      refetch();
+    }
+  }, [isOpen, refetch]);
 
   const handleChange = (e: any) => {
     const value = e.target.value;
@@ -59,6 +68,7 @@ export default function DepositDialog({ pool }: { pool: PoolType }) {
       return;
     }
 
+    setBtnDisabled(true);
     if (new BigNumber(allowance).eq(0)) {
       await writeApproveAsync({
         args: [process.env.NEXT_PUBLIC_VAULT_GOERLI_ADDRESS, maxUint256],
@@ -69,6 +79,10 @@ export default function DepositDialog({ pool }: { pool: PoolType }) {
     await writeEnterAsync({
       args: [pool.poolId, parseEther(amount)],
     });
+
+    toast('Successful deposited! 🚀');
+    document.getElementById('closeDialog')?.click();
+    setBtnDisabled(false);
   };
 
   return (
@@ -116,6 +130,7 @@ export default function DepositDialog({ pool }: { pool: PoolType }) {
               )}
               <Button
                 disabled={
+                  btnDisabled ||
                   !amount ||
                   new BigNumber(amount).lte(0) ||
                   Boolean(amountError)

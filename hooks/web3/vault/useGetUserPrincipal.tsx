@@ -9,7 +9,7 @@ export const useGetUserPrincipal = (poolId: number) => {
     VAULT_REGISTRY[chain?.id as keyof typeof VAULT_REGISTRY] ??
     VAULT_REGISTRY[5];
 
-  const { data } = useContractRead({
+  const { data, refetch } = useContractRead({
     address: vaultAddress as any,
     abi: VaultABI,
     functionName: 'getUserPrincipal',
@@ -17,5 +17,8 @@ export const useGetUserPrincipal = (poolId: number) => {
     enabled: Boolean(address),
   });
 
-  return ((data as any) ?? '').toString();
+  return {
+    data: ((data as any) ?? '').toString(),
+    refetch,
+  };
 };

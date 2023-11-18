@@ -1,6 +1,6 @@
 import { VAULT_REGISTRY } from '@/lib/constants/web3';
 import { PoolType } from '@/lib/types/web3';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   useAccount,
   useContractRead,
@@ -10,6 +10,7 @@ import {
 import VaultABI from '../../../abis/vault-abi';
 
 export const useGetPools = () => {
+  const lastPoolIdRef = useRef(0);
   const [pools, setPools] = useState<PoolType[]>([]);
   const { address } = useAccount();
   const { chain } = useNetwork();
@@ -18,17 +19,17 @@ export const useGetPools = () => {
     VAULT_REGISTRY[chain?.id as keyof typeof VAULT_REGISTRY] ??
     VAULT_REGISTRY[5];
 
-  const { data: lastPoolId, error } = useContractRead({
+  const { data: lastPoolId, refetch: refetchLastPoolId } = useContractRead({
     address: vaultAddress as any,
     abi: VaultABI,
     functionName: 'lastPoolId',
     enabled: Boolean(address),
   });
 
-  const _lastPoolId = lastPoolId as number;
+  lastPoolIdRef.current = lastPoolId as number;
   const contracts = [];
 
-  for (let i = 1; i <= _lastPoolId; i++) {
+  for (let i = 1; i <= lastPoolIdRef.current; i++) {
     contracts.push({
       address: vaultAddress,
       abi: VaultABI,
@@ -37,7 +38,7 @@ export const useGetPools = () => {
     });
   }
 
-  const { data } = useContractReads({
+  const { data, refetch: refetchPools } = useContractReads({
     contracts: contracts as any,
     enabled: Boolean(lastPoolId),
   });
@@ -64,6 +65,18 @@ export const useGetPools = () => {
 
     setPools(vaults);
   }, [data]);
+
+  useEffect(() => {
+    const intervalRef = setInterval(async () => {
+      console.log('called hm');
+      await refetchLastPoolId();
+      await refetchPools();
+    }, 5000);
+
+    return () => {
+      clearInterval(intervalRef);
+    };
+  }, [refetchLastPoolId, refetchPools]);
 
   return { pools };
 };
