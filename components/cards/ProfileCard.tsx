@@ -5,6 +5,14 @@ import { useAccount } from 'wagmi';
 import { Label } from '../ui/label';
 import { Separator } from '../ui/separator';
 
+const PROFILE_AVATAR_MAPPING = {
+  1: '/911.svg',
+  2: '/912.svg',
+  3: '/913.svg',
+  4: '/914.svg',
+  5: '/915.svg',
+};
+
 export default function ProfileCard() {
   return (
     <div className='m-auto flex h-[600px] w-1/2 flex-col rounded-xl p-4'>
@@ -21,11 +29,7 @@ function UserAvatar() {
   return (
     <div className='flex w-full flex-col items-center justify-center gap-4'>
       <div className='relative flex h-[175px] w-1/3 overflow-hidden rounded-xl'>
-        <Image
-          src='https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745'
-          alt='user-avatar'
-          fill
-        />
+        <Image src='/913.svg' alt='user-avatar' fill />
       </div>
       <Label className='text-center text-green-400'>{address}</Label>
     </div>
