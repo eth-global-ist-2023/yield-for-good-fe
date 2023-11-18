@@ -48,7 +48,7 @@ export default function WithdrawDialog({ pool }: { pool: PoolType }) {
 
     // NOTE: for decimals !== 18 is not going to work
     const valueInWei = parseEther(value);
-
+    console.log(valueInWei, userPrincipal);
     if (new BigNumber(valueInWei.toString()).gt(userPrincipal ?? '0')) {
       setAmountError('Insufficient balance');
     } else {

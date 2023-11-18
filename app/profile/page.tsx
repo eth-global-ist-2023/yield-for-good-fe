@@ -8,7 +8,7 @@ import Image from 'next/image';
 export default function Profile() {
   const { data } = useGetNfts();
   const { nfts } = useGetTokenUris(data as any);
-  console.log('nfts', nfts);
+
   return (
     <>
       <div className='flex gap-4'>

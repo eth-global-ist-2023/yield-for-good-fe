@@ -59,7 +59,7 @@ export const useGetPools = () => {
         imageURI: element[2],
         poolOwner: element[3],
         yieldSource: element[4],
-        asset: element[5],
+        asset: element[5].toLowerCase(),
         totalSharesDelegated: element[6],
         totalAssetPrincipal: element[7],
         creationDate: element[8].toString(),

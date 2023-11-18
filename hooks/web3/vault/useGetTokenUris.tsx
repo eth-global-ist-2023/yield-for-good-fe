@@ -26,6 +26,12 @@ export const useGetTokenUris = (tokenIds: Array<string>) => {
     enabled: Boolean(tokenIds),
   });
 
+  const failure = data?.find((e) => e.status === 'failure');
+
+  if (failure) {
+    return [] as any;
+  }
+
   const nfts = data?.map((d) => {
     const decoded = JSON.parse(
       Buffer.from((d.result as string)?.split(',')[1], 'base64').toString(

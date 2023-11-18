@@ -13,6 +13,7 @@ interface CampaignCardProps {
 }
 
 export default function PoolCard({ pool }: CampaignCardProps) {
+  console.log('pool', pool);
   const asset = ASSETS_MAPPING[pool.asset as keyof typeof ASSETS_MAPPING];
 
   return (
@@ -109,8 +110,8 @@ function DetailWrapper({
 }) {
   return (
     <div className='flex flex-col items-center gap-2'>
-      <Label className=' text-black'>{label}</Label>
-      <Label className=' text-green-400'>{value}</Label>
+      <Label className='text-black'>{label}</Label>
+      <Label className='text-green-400'>{value}</Label>
     </div>
   );
 }
