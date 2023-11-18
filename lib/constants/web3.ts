@@ -147,6 +147,18 @@ export const ASSETS_MAPPING = {
     CHAINS.CELO.id,
     CHAINS.CELO.logoUrl
   ),
+  '0x1907dbe9f2b42d6fdaf84ed9f6394e7ab0ec3258': getUsdcConfig(
+    CHAINS.POLYGON_ZKEVM.id,
+    CHAINS.POLYGON_ZKEVM.logoUrl
+  ),
+  '0xe7d7dee5fcf3a6104aa4da2a79e83f38309ede38': getApeConfig(
+    CHAINS.POLYGON_ZKEVM.id,
+    CHAINS.POLYGON_ZKEVM.logoUrl
+  ),
+  '0xfcc50b161a9d6fe667169f1f95677204e1cbaa79': getDaiConfig(
+    CHAINS.POLYGON_ZKEVM.id,
+    CHAINS.POLYGON_ZKEVM.logoUrl
+  ),
 };
 
 export const ASSET_POOLS = {
