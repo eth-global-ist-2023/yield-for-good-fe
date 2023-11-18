@@ -30,7 +30,7 @@ export default function PoolCard({ pool }: CampaignCardProps) {
 
       <PoolAsset assetIconUrl={asset.assetIconUrl} assetSymbol={asset.symbol} />
 
-      <div className='mt-6 flex flex-wrap justify-between gap-4 px-11'>
+      <div className='mt-6 flex justify-between gap-4 px-11'>
         <DetailWrapper
           label='TVL'
           value={`${formatNumber(
@@ -88,7 +88,7 @@ function AccruedYieldWrapper({
 
 function DetailHeader({ title }: { title: string }) {
   return (
-    <div className='mt-4 flex h-[50px] justify-center px-11'>
+    <div className='mt-4 flex justify-center px-11 leading-6'>
       <Label className='text-center text-sm uppercase'>{title}</Label>
     </div>
   );
