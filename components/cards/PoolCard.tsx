@@ -1,8 +1,11 @@
 'use client';
 
+import { useGetAccruedYield } from '@/hooks/web3/vault/useGetAccuredYield';
 import { ASSETS_MAPPING, ASSET_POOLS } from '@/lib/constants/web3';
 import { PoolType } from '@/lib/types/web3';
+import { formatNumber } from '@/lib/utils';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import { formatEther } from 'viem';
 import DepositDialog from '../dialogs/deposit';
 import WithdrawDialog from '../dialogs/withdraw';
@@ -30,16 +33,12 @@ export default function PoolCard({ pool }: CampaignCardProps) {
       <div className='mt-6 flex flex-wrap justify-between gap-4 px-11'>
         <DetailWrapper
           label='TVL'
-          value={`${formatEther(pool.totalAssetPrincipal).toString()} ${
-            asset.symbol
-          }`}
+          value={`${formatNumber(
+            formatEther(pool.totalAssetPrincipal).toString()
+          )} ${asset.symbol}`}
         />
-        <DetailWrapper
-          label='Reward'
-          value={`${formatEther(pool.totalAssetPrincipal).toString()} ${
-            asset.symbol
-          }`}
-        />
+
+        <AccruedYieldWrapper poolId={pool.poolId} assetSymbol={asset.symbol} />
 
         <DetailWrapper label='Participants' value={pool.totalParticipants} />
       </div>
@@ -63,10 +62,34 @@ function ImageWrapper({
   );
 }
 
+function AccruedYieldWrapper({
+  poolId,
+  assetSymbol,
+}: {
+  poolId: number;
+  assetSymbol: string;
+}) {
+  const [generatedYield, setGeneratedYield] = useState(0);
+  const { data } = useGetAccruedYield(poolId);
+
+  useEffect(() => {
+    setGeneratedYield(data?.[0] ?? 0);
+  }, [data]);
+
+  return (
+    <DetailWrapper
+      label='Yield'
+      value={`${formatNumber(
+        formatEther(generatedYield as any).toString()
+      )} ${assetSymbol}`}
+    />
+  );
+}
+
 function DetailHeader({ title }: { title: string }) {
   return (
     <div className='mt-4 flex h-[50px] justify-center px-11'>
-      <Label className='text-md text-center uppercase'>{title}</Label>
+      <Label className='text-center text-sm uppercase'>{title}</Label>
     </div>
   );
 }

@@ -15,8 +15,6 @@ export const useGetAccruedYield = (poolId: number) => {
     args: [poolId],
   });
 
-  console.log('data', data);
-
   return {
     data: ((data as any) ?? '').toString(),
     refetch,
