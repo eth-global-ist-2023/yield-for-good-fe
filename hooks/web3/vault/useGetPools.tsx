@@ -1,6 +1,6 @@
 import { VAULT_REGISTRY } from '@/lib/constants/web3';
 import { PoolType } from '@/lib/types/web3';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   useAccount,
   useContractRead,
@@ -9,7 +9,8 @@ import {
 } from 'wagmi';
 import VaultABI from '../../../abis/vault-abi';
 
-const useWagmiGetPools = () => {
+export const useGetPools = () => {
+  const [pools, setPools] = useState<PoolType[]>([]);
   const { address } = useAccount();
   const { chain } = useNetwork();
 
@@ -41,33 +42,27 @@ const useWagmiGetPools = () => {
     enabled: Boolean(lastPoolId),
   });
 
-  if (!data) {
-    return [];
-  }
+  useEffect(() => {
+    if (!data) {
+      setPools([]);
+    }
 
-  const vaults = [];
+    const vaults = [];
 
-  for (let i = 0; i < data?.length; i++) {
-    const element = data[i].result as any;
-    const item = {
-      poolOwner: element[0],
-      yieldSource: element[1],
-      asset: element[2],
-      totalSharesDelegated: element[3],
-      totalAssetPrincipal: element[4],
-    };
-    vaults.push({ ...item, poolId: i + 1 });
-  }
+    for (let i = 0; i < data?.length; i++) {
+      const element = data[i].result as any;
+      const item = {
+        poolOwner: element[0],
+        yieldSource: element[1],
+        asset: element[2],
+        totalSharesDelegated: element[3],
+        totalAssetPrincipal: element[4],
+      };
+      vaults.push({ ...item, poolId: i + 1 });
+    }
 
-  return vaults;
-};
+    setPools(vaults);
+  }, [data]);
 
-export const useGetPools = () => {
-  const [pools, setPools] = useState<PoolType[]>([]);
-  const { address } = useAccount();
-  const { chain } = useNetwork();
-
-  const wagmiPools = useWagmiGetPools();
-
-  return { pools: wagmiPools };
+  return { pools };
 };
