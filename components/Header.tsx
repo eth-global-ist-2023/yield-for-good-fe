@@ -77,12 +77,22 @@ function ConnectKitButton() {
           truncatedAddress,
         }) => {
           return (
-            <Button
-              onClick={show}
-              className='w-[178px] bg-green-500 font-bold text-white hover:bg-green-600'
-            >
-              {isConnected ? ensName || truncatedAddress : 'Connect'}
-            </Button>
+            <div className='relative flex items-center'>
+              {/* <div className='absolute left-2'>
+                <Image
+                  src={}
+                  alt='logoUrl'
+                  width={15}
+                  height={15}
+                />
+              </div> */}
+              <Button
+                onClick={show}
+                className='w-[200px] bg-green-500 font-bold text-white hover:bg-green-600'
+              >
+                {isConnected ? ensName || truncatedAddress : 'Connect'}
+              </Button>
+            </div>
           );
         }}
       </ConnectKitButtonNext.Custom>

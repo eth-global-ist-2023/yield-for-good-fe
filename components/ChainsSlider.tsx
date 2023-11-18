@@ -23,12 +23,6 @@ export default function ChainsSlider2() {
         />
         <Image src='/linea_logo.png' alt='linea_logo' width={40} height={40} />
         <Image src='/eth_logo.png' alt='eth_logo' width={40} height={40} />
-        <Image
-          src='/mantle_logo.webp'
-          alt='mantle_logo'
-          width={40}
-          height={40}
-        />
         <Image src='/neon_logo.png' alt='neon_logo' width={40} height={40} />
         <Image
           src='/polygon_logo.svg'

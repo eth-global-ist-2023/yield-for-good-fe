@@ -12,7 +12,7 @@ export default function NFTCard({ nft }: { nft: any }) {
           alt='NFT'
           fill
           className='rounded-t-xl'
-          objectFit='cover'
+          style={{ objectFit: 'cover' }}
         />
       </div>
       <div className='flex w-full items-center justify-center'>
