@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import { useAccount } from 'wagmi';
 import { Label } from '../ui/label';
 import { Separator } from '../ui/separator';
@@ -24,7 +25,17 @@ export default function ProfileCard() {
 }
 
 function UserAvatar() {
-  const { address } = useAccount();
+  const { address: _address } = useAccount();
+
+  const [address, setAddress] = useState('');
+
+  useEffect(() => {
+    if (!_address) {
+      return;
+    }
+
+    setAddress(_address);
+  }, [_address]);
 
   return (
     <div className='flex w-full flex-col items-center justify-center gap-4'>

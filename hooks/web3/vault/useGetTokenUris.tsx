@@ -1,6 +1,5 @@
 import { NFT_ABI } from '@/abis/nft-abi';
-import { VAULT_REGISTRY } from '@/lib/constants/web3';
-import { useAccount, useContractReads, useNetwork } from 'wagmi';
+import { useContractReads } from 'wagmi';
 import { useGetNftAddress } from './useGetNftAddress';
 
 interface IMetadata {
@@ -10,13 +9,7 @@ interface IMetadata {
 }
 
 export const useGetTokenUris = (tokenIds: Array<string>) => {
-  const { address } = useAccount();
-  const { chain } = useNetwork();
   const { yfgSoulbound } = useGetNftAddress();
-
-  const vaultAddress =
-    VAULT_REGISTRY[chain?.id as keyof typeof VAULT_REGISTRY] ??
-    VAULT_REGISTRY[5];
 
   const calldata = [];
   for (let i = 0; i < tokenIds.length; i++) {
@@ -35,7 +28,9 @@ export const useGetTokenUris = (tokenIds: Array<string>) => {
 
   const nfts = data?.map((d) => {
     const decoded = JSON.parse(
-      Buffer.from(d.result?.split(',')[1], 'base64').toString('utf-8')
+      Buffer.from((d.result as string)?.split(',')[1], 'base64').toString(
+        'utf-8'
+      )
     );
     return decoded;
   });

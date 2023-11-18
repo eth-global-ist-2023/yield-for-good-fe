@@ -7,11 +7,19 @@ import Image from 'next/image';
 
 export default function Profile() {
   const { data } = useGetNfts();
-  const { nfts } = useGetTokenUris(data);
-
+  const { nfts } = useGetTokenUris(data as any);
+  console.log('nfts', nfts);
   return (
     <>
-      <Image src={nfts?.[0]?.image} alt='NFT' width={500} height={500} />
+      <div className='flex gap-4'>
+        {nfts
+          ? nfts.map((nft: any, idx: number) => (
+              <div key={idx} className='relative h-[250px] w-[250px]'>
+                <Image src={nft?.image} alt='NFT' fill />
+              </div>
+            ))
+          : null}
+      </div>
       <ProfileCard />
     </>
   );
