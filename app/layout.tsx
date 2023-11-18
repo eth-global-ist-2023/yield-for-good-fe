@@ -1,5 +1,6 @@
 import Header from '@/components/Header';
 import Providers from '@/components/providers';
+import InfiniteSlideshow from '@/components/ui/slide-show';
 import type { Metadata } from 'next';
 import { Titillium_Web } from 'next/font/google';
 import './globals.css';
@@ -26,6 +27,7 @@ export default function RootLayout({
         <Providers>
           <div className='main-container'>
             <Header />
+            <InfiniteSlideshow />
             <div className='page-wrapper'>{children}</div>
           </div>
         </Providers>
